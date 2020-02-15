@@ -20,7 +20,11 @@
 		</form>
 
 	</div>
-	<div class="col-xs-4"></div>
+	<div class="col-xs-4">
+		{{ if .Id}}
+			<a href="/delete?id={{.Id}}">Delete</a>
+		{{ end }}
+	</div>
 </div>
 
 {{ template "footer" }}

@@ -45,15 +45,37 @@ func EditPostHandler(w http.ResponseWriter, r *http.Request) {
 	} else {
 		_ = t.ExecuteTemplate(w, "write", post)
 	}
+
+	http.Redirect(w, r, "/", 302)
 }
 
 func SaveNewPostHandler(w http.ResponseWriter, r *http.Request) {
-	id := GenerateId()
+	id := r.FormValue("id")
 	title := r.FormValue("title")
 	text := r.FormValue("content")
 
-	post := models.NewPost(id, title, text)
-	posts[post.Id] = post
+	var post *models.Post
+	if id != "" {
+		post = posts[id]
+		post.Title = title
+		post.Text = text
+	} else {
+		id := GenerateId()
+		post := models.NewPost(id, title, text)
+		posts[post.Id] = post
+	}
+
+	http.Redirect(w, r, "/", 302)
+}
+
+func DeletePostHandler(w http.ResponseWriter, r *http.Request) {
+	id := r.FormValue("id")
+
+	if id == "" {
+		http.NotFound(w, r)
+	}
+
+	delete(posts, id)
 
 	http.Redirect(w, r, "/", 302)
 }
@@ -68,6 +90,7 @@ func main() {
 	http.HandleFunc("/", IndexHandler)
 	http.HandleFunc("/write", AddNewPostHandler)
 	http.HandleFunc("/edit", EditPostHandler)
+	http.HandleFunc("/delete", DeletePostHandler)
 	http.HandleFunc("/SavePost", SaveNewPostHandler)
 
 	conf := Config.InitConfig()
