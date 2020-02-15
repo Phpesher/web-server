@@ -11,7 +11,7 @@ import (
 var posts map[string]*models.Post
 
 func IndexHandler(w http.ResponseWriter, r *http.Request) {
-	t, err := template.ParseFiles("temp/index.html", "temp/header.html", "temp/footer.html")
+	t, err := template.ParseFiles("temp/index.html", "temp/header.html")
 
 	if err != nil {
 		_, _ = fmt.Fprintf(w, err.Error())
@@ -21,7 +21,7 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func AddNewPostHandler(w http.ResponseWriter, r *http.Request) {
-	t, err := template.ParseFiles("temp/write.html", "temp/header.html", "temp/footer.html")
+	t, err := template.ParseFiles("temp/write.html", "temp/header.html")
 
 	if err != nil {
 		_, _ = fmt.Fprintf(w, err.Error())
@@ -31,7 +31,7 @@ func AddNewPostHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func EditPostHandler(w http.ResponseWriter, r *http.Request) {
-	t, err := template.ParseFiles("temp/write.html", "temp/header.html", "temp/footer.html")
+	t, err := template.ParseFiles("temp/write.html", "temp/header.html")
 
 	if err != nil {
 		_, _ = fmt.Fprintf(w, err.Error())
