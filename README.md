@@ -1,4 +1,4 @@
 # web-server
 ------------
 
-My simple web-server on GO 
+My simple blog on GO 
